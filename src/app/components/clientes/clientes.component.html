@@ -14,15 +14,20 @@
             <th>Apellido</th>
             <th>Email</th>
             <th>Fecha</th>
+            <th>Editar</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let cliente of clientes">
-            <th>{{cliente.id}}</th>
-            <th>{{cliente.nombre}}</th>
-            <th>{{cliente.apellido}}</th>
-            <th>{{cliente.email}}</th>
-            <th>{{cliente.createAt}}</th>
+            <td>{{cliente.id}}</td>
+            <td>{{cliente.nombre}}</td>
+            <td>{{cliente.apellido}}</td>
+            <td>{{cliente.email}}</td>
+            <td>{{cliente.createAt}}</td>
+            <td>
+              <button type="button" name="button" [routerLink]="[ '/clientes/form', cliente.id]"
+                class="btn btn-primary btn-sm">editar</button>
+            </td>
           </tr>
         </tbody>
       </table>

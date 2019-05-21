@@ -12,11 +12,12 @@ import { ClienteService } from "../app/services/cliente.service";
 import { FormComponent } from './components/clientes/form.component';
 import {  FormsModule } from "@angular/forms";
 
-const routes:Routes = [
-  {path:'',redirectTo:'/clientes',pathMatch:'full'},
-  {path:'directivas',component:DirectivaComponent},
-  {path:'clientes',component:ClientesComponent},
-  {path: 'clientes/form', component: FormComponent },
+const routes: Routes = [
+  { path: "", redirectTo: "/clientes", pathMatch: "full" },
+  { path: "directivas", component: DirectivaComponent },
+  { path: "clientes", component: ClientesComponent },
+  { path: "clientes/form", component: FormComponent },
+  { path: "clientes/form/:id", component: FormComponent }
 ];
 
 @NgModule({

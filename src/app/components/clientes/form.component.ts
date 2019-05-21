@@ -1,27 +1,54 @@
-import { Component, OnInit } from '@angular/core';
-import { Cliente } from './cliente';
+import { Component, OnInit } from "@angular/core";
+import { Cliente } from "./cliente";
 import { ClienteService } from "../../services/cliente.service";
-import { Router } from "@angular/router";
-import swal from 'sweetalert2';
+import { Router, ActivatedRoute } from "@angular/router";
+import swal from "sweetalert2";
 
 @Component({
-  selector: 'app-form',
-  templateUrl: './form.component.html'
+  selector: "app-form",
+  templateUrl: "./form.component.html"
 })
 export class FormComponent implements OnInit {
-
-  private titulo: string = 'Crear cliente';
-  private cliente:Cliente = new Cliente();
-  constructor(private clienteService: ClienteService, private router:Router) { }
+  private titulo: string = "Crear cliente";
+  private cliente: Cliente = new Cliente();
+  constructor(
+    private clienteService: ClienteService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ) {}
 
   ngOnInit() {
+    this.cargarCliente();
   }
 
-  public create(): void{
-    this.clienteService.create(this.cliente).subscribe(
-      cliente => {this.router.navigate(['/clientes'])
-                  swal.fire('Nuevo cliente',`Cliente ${cliente.nombre} creado con exito!`,'success');
-    }
-    )
+  public create(): void {
+    this.clienteService.create(this.cliente).subscribe(cliente => {
+      this.router.navigate(["/clientes"]);
+      swal.fire(
+        "Nuevo cliente",
+        `Cliente ${cliente.nombre} creado con exito!`,
+        "success"
+      );
+    });
+  }
+  public cargarCliente() {
+    this.activatedRoute.params.subscribe(params => {
+      let id = params["id"];
+      if (id) {
+        this.clienteService
+          .getCliente(id)
+          .subscribe(cliente => (this.cliente = cliente));
+      }
+    });
+  }
+  public update() {
+    this.clienteService.update(this.cliente).subscribe(cliente => {
+      this.router.navigate(["/clientes"]);
+      swal.fire(
+        "Cliente Actualizado",
+        `Cliente ${cliente.nombre} actualizado con exito!`,
+        "success"
+      );
+    });
   }
 }
